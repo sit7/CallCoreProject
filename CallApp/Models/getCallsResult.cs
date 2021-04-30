@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace CallApp.Models
 {
-    [NotMapped]
+    //Чтобы работала ветка через ХП NotMapped д.б. закоментировано
+    //Если нужно пересоздавать базу через миграции - надо раскомментировать
+
+    //[NotMapped]
     public class getCallsResult
     {
         [Key]
