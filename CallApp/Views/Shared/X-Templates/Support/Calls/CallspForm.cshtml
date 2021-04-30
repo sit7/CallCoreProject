@@ -1,0 +1,206 @@
+﻿<script type="text/x-template" id="callsp-form">
+	<div class="callsp-form">
+		<el-form ref="CallspForm" v-bind:model="callModel"
+				 label-position="top" size="mini" status-icon>
+			<el-row v-bind:gutter="15">
+				<el-row>
+					<el-col v-bind:span="16">
+						<el-form-item label="Наименование" size="mini" prop="Name"
+									  v-bind:rules="[
+                                      { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+                                  ]">
+							<el-input v-model="callModel.Name"
+									  size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="3">
+						<el-form-item label="Входящий" size="mini" prop="IsInc"
+									  v-bind:rules="[
+                                      { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+                                  ]">
+							<el-checkbox class="check-box-text-small"
+										 v-model="callModel.IsInc"
+										 v-bind:true-label="1"
+										 v-bind:false-label="0"
+										 >
+								<span v-if="callModel.IsInc">Входящий</span>
+								<span v-else>Исходящий</span>
+							</el-checkbox>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col v-bind:span="16">
+						<el-form-item label="Описание" size="mini" prop="Description"
+									 >
+							<el-input v-model="callModel.Description"
+									  type="textarea"
+									  v-bind:autosize="{ minRows: 5,  maxRows: 5}" size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+					
+				</el-row>
+				<el-row>
+					<el-col v-bind:span="10">
+						<el-form-item label="Решение" size="mini" prop="Solution"
+									  >
+							<el-input v-model="callModel.Solution"
+									  size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+
+					<el-col v-bind:span="6">
+						<el-form-item label="Объект"
+									  size="mini"
+									  prop="ObjectID"
+									  v-bind:rules="[
+										  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+									  ]">
+
+							<el-select v-model="callModel.ObjectID"
+									   placeholer="Объект"
+									   class="full-width"
+									   filterable
+									   size="mini"
+									   remote
+									   v-bind:remote-method="getObjects">
+								<el-option v-for="item in objects"
+										   v-bind:key="item.ObjectID"
+										   v-bind:label="item.Name"
+										   v-bind:value="item.ObjectID"
+										   v-bind:title="item.Name">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="5">
+						<el-form-item label="Назв. объекта" size="mini" prop="ShortName">
+							<el-input v-model="callModel.ShortName" size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="6">
+						<el-form-item label="Принял звонок"
+									  size="mini"
+									  prop="CreateUserID"
+									  v-bind:rules="[
+										  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+									  ]">
+							<el-select v-model="callModel.CreateUserID" placeholer="Принял звонок" class="full-width">
+								<el-option v-for="item in users"
+										   v-bind:key="item.CreateUserID"
+										   v-bind:label="item.ShortName"
+										   v-bind:value="item.UserID"
+										   v-bind:title="item.ShortName">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="6">
+						<el-form-item label="Ответственный"
+									  size="mini"
+									  prop="ResponsibleUserID">
+							<el-select v-model="callModel.ResponsibleUserID" placeholer="Ответственный" class="full-width">
+								<el-option v-for="item in users"
+										   v-bind:key="item.ResponsibleUserID"
+										   v-bind:label="item.ShortName"
+										   v-bind:value="item.UserID"
+										   v-bind:title="item.ShortName">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+
+					<el-col v-bind:span="6">
+						<el-form-item label="Задача"
+									  size="mini"
+									  prop="TaskID"
+									  v-bind:rules="[
+										  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+									  ]">
+							<el-select v-model="callModel.TaskID" placeholer="Задача" class="full-width">
+								<el-option v-for="item in tasks"
+										   v-bind:key="item.TaskID"
+										   v-bind:label="item.Name"
+										   v-bind:value="item.TaskID"
+										   v-bind:title="item.Name">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="6">
+						<el-form-item label="Приоритет"
+									  size="mini"
+									  prop="PriorityID"
+									  v-bind:rules="[
+										  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+									  ]">
+							<el-select v-model="callModel.PriorityID" placeholer="Приоритет" class="full-width">
+								<el-option v-for="item in priorities"
+										   v-bind:key="item.PriorityID"
+										   v-bind:label="item.Name"
+										   v-bind:value="item.PriorityID"
+										   v-bind:title="item.Name">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="6">
+						<el-form-item label="Статус"
+									  size="mini"
+									  prop="StatusID"
+									  v-bind:rules="[
+										  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+									  ]">
+							<el-select v-model="callModel.StatusID" placeholer="Статус" class="full-width">
+								<el-option v-for="item in statuses"
+										   v-bind:key="item.StatusID"
+										   v-bind:label="item.Name"
+										   v-bind:value="item.StatusID"
+										   v-bind:title="item.Name">
+								</el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col v-bind:span="4">
+						<el-form-item label="Дата звонка" size="mini" prop="CallDate"
+									  v-bind:rules="[
+												  { required: true, message:'Значение должно быть заполнено', trigger:['change', 'blur'] },
+											  ]">
+							<el-date-picker v-model="callModel.CallDate"
+											type="date"
+											size="mini"
+											style="width:auto"
+											v-bind:picker-options="{firstDayOfWeek: 1}"
+											format="dd.MM.yyyy">
+							</el-date-picker>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="9">
+						<el-form-item label="Номер телефона" size="mini" prop="PhoneNumber">
+							<el-input v-model="callModel.PhoneNumber" size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col v-bind:span="9">
+						<el-form-item label="Имя клиента" size="mini" prop="CallerName">
+							<el-input v-model="callModel.CallerName" size="mini"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+			</el-row>
+		</el-form>
+		<div class="text-right">
+			<el-button v-on:click="saveCall"
+					   icon="el-icon-upload2"
+					   type="primary"
+					   size="small">
+				Сохранить
+			</el-button>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,60 @@
+﻿<script type="text/x-template" id="crossd-generic-dialog">
+    <div class="crossd-generic-dialog">
+            <el-dialog :visible.sync="showdialog"
+                       :before-close="canceldialog"
+                        v-bind:close-on-click-modal="false"
+                        v-bind:width="'700px'"
+                        v-bind:lock-scroll="true"
+                        v-bind:top="'15vh'"
+                       :append-to-body="append">
+                <template v-if="dialogstyle === 'form'">
+                    <div v-if="payload !== undefined">
+                        <crossd-generic-form-container :ref="model.name + '_form'"
+                                                       :containermodel="model"
+                                                       :userinfo="userinfo"
+                                                       v-on:container-validation-failed="onvalidatefailed"
+                                                       :payload="payload"></crossd-generic-form-container>
+                    </div>
+                </template>
+                <template v-else-if="dialogstyle === 'grid'">
+                    <div v-if="payload !== undefined">
+                        <crossd-generic-grid :ref="model.name+'grid'"
+                                             :gridmodel="model"
+                                             :geturl="model.getmethod"
+                                             :addurl="model.addmethod"
+                                             :payload="payload"
+                                             :userinfo="userinfo"
+                                             :id="model.idfield"
+                                             :createnew="model.createnew"
+                                             :customallownew="allowadd"
+                                             v-on:grid-action-clicked="ongridactionclicked($parent, $event)"
+                                             v-on:add-new-clicked="onaddnew">
+                        </crossd-generic-grid>
+                    </div>
+                </template>
+                <template v-else-if="dialogstyle=== 'tree'">
+                    <div v-if="payload !== undefined">
+                        <crossd-generic-tree :treemodel="model"
+                                             :ref="model.name+'tree'"
+                                             :payload="payload"
+                                             :addurl="model.addmethod"
+                                             :geturl="model.getmethod"
+                                             :createnew="model.createnew"
+                                             :userinfo="userinfo"
+                                             :nodestyle="nodestyle"
+                                             :options="model"
+                                             v-on:grid-action-clicked="ongridactionclicked($parent, $event)"
+                                             v-on:add-new-clicked="onaddnew"></crossd-generic-tree>
+                    </div>
+                </template>
+                <template slot="footer" class="dialog-footer">
+                    <el-button type="warning" size="mini" v-on:click="canceldialog">Закрыть</el-button>
+                    <template v-if="confirmmethod !== undefined">
+                        <el-button v-if="dialogstyle === 'form'" type="success" size="mini" v-on:click="confirmdialog">
+                            <span>Сохранить</span>
+                        </el-button>
+                    </template>
+                </template>
+            </el-dialog>
+        </div>
+</script>

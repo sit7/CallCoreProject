@@ -1,0 +1,121 @@
+﻿<style>
+    hr {
+        border: none;
+        border-top: 3px double #333;
+        color: #333;
+        overflow: visible;
+        text-align: center;
+        height: 5px;
+    }
+    hr::after {
+        padding: 0 4px;
+        position: relative;
+        top: -13px;
+    }
+    
+    
+</style>
+<script src="~/Scripts/client-apps/common/crossd-mixins.js" type="text/javascript"></script>
+<script type="text/x-template" id="crossd-generic-list">
+    <div class="crossd-generic-list">
+        <template v-if="searchable">
+            <el-input v-model="searchargs.SearchString" 
+                      size="mini" 
+                      placeholder="Поиск" 
+                      clearable></el-input>
+        </template>
+        
+        <template v-if="liststyle === 'tile'">
+            
+            <el-row v-loading="isloading" :gutter="20" type="grid">
+                <el-col v-for="(item, index) in searched(searchargs.SearchString, listmodel, list)"
+                        :key="listmodel.key(item)"
+                        :span="12">
+                    <el-card shadow="hover" size="mini" style="margin: 10px; padding: 0px" >
+                        <p slot="header" style="text-overflow: ellipsis; overflow: hidden;">
+                            <template v-if="listmodel.routeinfo !== undefined">
+                                <router-link :to="listmodel.routeinfo(item)">{{listmodel.title(item)}}</router-link>
+                            </template>
+                            <template v-else>
+                                <span>{{listmodel.title(item)}}</span>
+                            </template>
+                            <template v-if="listmodel.resolveicon !== undefined">
+                                <i :class="listmodel.resolveicon(item)"></i>
+                            </template>
+                        </p>
+                        <crossd-generic-list 
+                                            liststyle="cardview"
+                                            :row="item"
+                                            :customlist="listmodel.descriptor">
+                        </crossd-generic-list>
+                    </el-card>
+                </el-col>
+            </el-row>
+            <template v-if="searchstarted && searchmodel !== undefined">
+                <template v-if="listcount <= 4">
+                    <hr />
+                    <crossd-generic-list liststyle="tile"
+                                         :geturl="searchmodel.url"
+                                         :listmodel="searchmodel"
+                                         :args="searchargs"
+                                         :userinfo="userinfo">
+                    </crossd-generic-list>
+                </template>
+            </template>
+        </template>
+        <template v-else-if="liststyle === 'accordion'">
+            <el-collapse accordion>
+                <template v-for="(item, index) in list">
+                    <template v-if="resolvevisible(item, row)">
+                        <el-collapse-item>
+                            <span slot="title">
+                                <template v-if="listmodel.resolveicon !== undefined">
+                                    <i :class="listmodel.resolveicon(item)"></i>
+                                </template>
+                                <template v-if="listmodel.title !== undefined">
+                                    <span v-text="listmodel.title(item)"></span>
+                                </template>
+                            </span>
+                            <template v-if="listmodel.tabs !== undefined && Array.isArray(listmodel.tabs)">
+                                <crossd-generic-list :customlist="listmodel.tabs" 
+                                                        :liststyle="liststyle" 
+                                                        :userinfo="userinfo" 
+                                                        :listmodel="listmodel.descriptormodel" 
+                                                        :row="item"></crossd-generic-list>
+                            </template>
+                            <template v-else-if="item.descriptor !== undefined && Array.isArray(item.descriptor)">
+                                <crossd-generic-list :customlist="item.descriptor" 
+                                                        :liststyle="'cardview'" 
+                                                        :userinfo="userinfo" 
+                                                        :row="row"></crossd-generic-list>
+                            </template>
+                            <template v-if="listmodel.methods !== undefined">
+                                <el-row>
+                                    <el-tooltip v-for="(method, index) in listmodel.methods" :content="method.displayname" :key="method.name">
+                                        <el-button v-if="touch(method, userinfo, item)" 
+                                                    size="mini" 
+                                                    type="text" 
+                                                    :icon="method.icon" 
+                                                    v-on:click="onclick(method.action(item), item)"></el-button>
+                                    </el-tooltip>
+                                </el-row>
+                            </template>
+                        </el-collapse-item>
+                    </template>
+                </template>
+            </el-collapse>
+        </template>
+        <template v-else-if="liststyle === 'cardview'">
+            <template v-for="(item, index) in list">
+                <div v-if="resolvevisible(item, row)" >
+                    <crossd-generic-column-content :row="row" 
+                                                    :property="item" 
+                                                    owner="form" 
+                                                    :rawvalue="row[item.datafield]"
+                                                    :ispropertyvisible="resolvevisible" 
+                                                    :remoteoptions="remoteoptions(row, item)"></crossd-generic-column-content>
+                </div>
+            </template>
+        </template>
+    </div>
+</script>

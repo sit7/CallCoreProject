@@ -1,0 +1,21 @@
+﻿@using ServiceLib.Infrastructure
+@using Newtonsoft.Json
+<script type="text/x-template" id="objects-app">
+    @{
+        var settings = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+        var userinfo = Json.Serialize(new
+        {
+            userid = CrossDUser.Current.UserID,
+            objectid = CrossDUser.Current.ObjectID,
+            isadmin = User.IsInRole("admin"),
+            isobjecteditor = User.IsInRole("ObjectEditor")
+
+        }, settings);
+    }
+    <div class="objects-app">
+        <h1>Появится?</h1>
+        <objects-list :userinfo="getjson(@userinfo.ToString())"></objects-list>
+        <h1>Появится!</h1>
+    </div>
+
+</script>

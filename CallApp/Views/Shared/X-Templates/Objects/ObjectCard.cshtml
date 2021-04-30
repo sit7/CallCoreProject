@@ -1,0 +1,31 @@
+﻿@using ServiceLib.Infrastructure
+@using Newtonsoft.Json
+<script type="text/x-template" id="object-card">
+    @{
+        var settings = new JsonSerializerSettings { StringEscapeHandling = StringEscapeHandling.EscapeHtml };
+        var userinfo = Json.Serialize(new
+        {
+            userid = CrossDUser.Current.UserID,
+            objectid = CrossDUser.Current.ObjectID,
+            isadmin = User.IsInRole("admin"),
+            isobjecteditor = User.IsInRole("ObjectEditor"),
+            isheader = User.IsInRole("Header")
+        }, settings);
+    }
+    <div v-loading="currentobject === undefined" class="object-card">
+        <el-button size="small"
+                   icon="el-icon-back"
+                   type="default"
+                   v-on:click="goback">
+            К списку объектов
+        </el-button>
+        <template v-if="currentobject !== undefined">
+            <crossd-generic-form-container ref="objectdialogcontainer"
+                                           :containermodel="objectcardmodel"
+                                           :userinfo="getjson(@userinfo.ToString())"
+                                           :payload="currentobject">
+            </crossd-generic-form-container>
+        </template>
+    </div>
+
+</script>

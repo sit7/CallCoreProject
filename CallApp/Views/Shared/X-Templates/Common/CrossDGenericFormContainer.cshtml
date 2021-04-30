@@ -1,0 +1,37 @@
+﻿<script type="text/x-template" id="crossd-generic-form-container">    
+    <div v-if="istabbed">
+        <el-tabs type="border-card" size="mini" :before-leave="beforeLeaves">
+            <template v-for="(tab, index) in tabs">
+                <el-tab-pane :key="index" :disabled="tab.isdisabled(payload)" size="mini">
+                    <span slot="label">
+                        {{tab.header}}
+                        <template v-if="tab.haserrors">
+                            <i class="el-icon-error" style="color:red;"></i>
+                        </template>
+                    </span>
+                    <crossd-generic-form :formmodel="tab.model"
+                                            :ref="tab.formref"
+                                            :payload="payload"
+                                            :ispropertyvisible="resolvepropertyvisible(userinfo, payload)"
+                                            :ispropertyeditable="resolvepropertyeditable(userinfo, payload)"
+                                            :isoptiondisabled="resolveoptiondisabled(userinfo, payload)"
+                                            v-on:validation-failed="onvalidationfailed(index, $event)"
+                                            v-on:payload-property-changed="onpayloadchanged">
+                    </crossd-generic-form>
+                </el-tab-pane>
+            </template>
+
+        </el-tabs>
+    </div>
+    <div v-else>
+        <crossd-generic-form :ref="getformkey(containermodel)"
+                                :formmodel="containermodel"
+                                :payload="payload"
+                                :ispropertyvisible="resolvepropertyvisible(userinfo, payload)"
+                                :ispropertyeditable="resolvepropertyeditable(userinfo, payload)"
+                                :isoptiondisabled="resolveoptiondisabled(userinfo, payload)"
+                                v-on:validation-failed="onvalidationfailed(0, $event)"
+                                v-on:payload-property-changed="onpayloadchanged">
+        </crossd-generic-form>
+    </div>
+</script>

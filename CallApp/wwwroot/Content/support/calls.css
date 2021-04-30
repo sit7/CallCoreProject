@@ -1,0 +1,55 @@
+﻿
+.el-table__body {
+    width: auto !important;
+}
+
+
+.el-table__header {
+    width: auto !important;
+}
+
+
+@media screen and (min-width: 1920px) and (max-width: 3840px) {
+.el-table__body {
+    width: 100% !important;
+}
+}
+
+
+.el-table__header {
+    width: auto !important;
+}
+
+
+.gutter {
+    width: 0px;
+    display: block !important;
+}
+
+
+
+
+
+.el-table .cell {
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: normal !important;
+    color: black;
+    padding: 0 3px !important;
+    line-height: 1.2 !important;
+}
+
+
+.el-table th > .cell {
+   
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿section#app .full-width,
+.custom .full-width {
+    width: 100%;
+}
+
+section#app .el-card {
+    margin-bottom: 10px;
+}
+
+section#app .el-card .el-card__header {
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+section#app .el-card .el-card__body{
+    
+    height: 180px;
+    overflow: hidden;
+}
+section#app .el-card .el-card__body .hour-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+section#app .el-card .el-card__body .hour-line .hour-name{
+    font-style: italic;
+}
+
+section#app .el-card .el-card__body .hour-line .spacer {
+    border-bottom: 1px solid #ccc;
+    flex-grow: 1;
+    line-height:1;
+}
+
+.custom .eating-group-name{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #292929;
+}
+
+section#app .no-data-caption {
+    font-style: italic;
+    color: #888888;
+}
+
+.custom .time-picker-button-wrapper{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.custom .time-picker-button-wrapper .button {
+    position: absolute;
+    right: -25px;
+}

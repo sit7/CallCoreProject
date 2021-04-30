@@ -1,0 +1,59 @@
+﻿<style>
+    .el-tree-node__content {
+        display: block;
+        background-color: aliceblue;
+        height: auto;
+        padding: 3px;
+        margin: 3px;
+    }
+    .comment_text {
+            display: block
+        }
+    .comment_footer {
+            display: block;
+            font-size: x-small;
+        }
+    .comment_buttons {
+            display: block;
+            font-size: x-small;
+        }
+</style>
+<script type="text/x-template" id="crossd-generic-tree">
+    <div class="crossd-generic-tree">
+        <el-button type="text" size="mini" v-on:click="onaddclick">Добавить</el-button>
+        <el-tree :props="treeoptions"
+                 ref="tree"
+                 :load="loadtree"
+                 :node-key="treemodel.idfield"
+                 :expand-on-click-node="false"
+                 default-expand-all lazy>
+            <div @@mouseover="showByIndex=node.id" @@mouseout="showByIndex=null" slot-scope="{ node, data }">
+
+                <template v-if="nodestyle==='comments'">
+                    <div class="el-tree-node__content">
+                        <span class="comment_text">{{node.label}}</span>
+                        <div class="comment_footer">
+                            <span>{{data.UserName}}</span>
+                            <span>{{formatdate(data.RecordDate)}}</span>
+                        </div>
+                    </div>
+                </template>
+                <template v-else>
+                    <span>{{node.label}}</span>
+                </template>
+                <template v-for="(method, index) in treemodel.methods">
+                    <el-tooltip v-if="touch(method, userinfo, data)" :content="method.displayname" :key="method.name" size="mini">
+                        <el-button size="mini" type="text" :icon="method.icon" v-on:click="methodaction($parent, method, node)">
+                        </el-button>
+                    </el-tooltip>
+                </template>
+
+            </div>
+        </el-tree>
+        <crossd-generic-dialog dialogstyle="form"
+                           ref="treeroweditor"
+                           :model="treemodel"
+                           :userinfo="userinfo"
+                           :append="true"></crossd-generic-dialog>
+    </div>
+</script>

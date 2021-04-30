@@ -1,0 +1,63 @@
+﻿<style>
+    input[type="file"] {
+        display: none;
+    }
+    .el-upload--picture-card {
+         background-color: #fbfdff;
+         border: 1px dashed #c0ccda;
+         border-radius: 6px;
+         box-sizing: border-box;
+         width: 148px;
+         height: 148px;
+         line-height: 146px;
+         vertical-align: top;
+    }
+    .el-upload--picture-card-disabled {
+        display: none;
+    }
+</style>
+<script type="text/x-template" id="crossd-generic-gallery">    
+    <div id="crossd-generic-gallery">
+        <p v-loading="isloading"></p>
+        <template>
+            <ul v-if="!isloading" class="el-upload-list el-upload-list--picture-card">
+                <template v-for="(file,index) in listdata">
+                    <li :tabindex="index" class="el-upload-list__item is-success" :key="index">
+                        <el-image fit="scale-down" class="el-upload-list__item-thumbnail" :src="file.src" alt=""></el-image>
+                        <span class="el-upload-list__item-actions">
+                            <template v-for="(method, index) in gallerymodel.methods">
+                                <template v-if="touch(method, userinfo, file)">
+                                    <span :class="method.class" v-on:click="methodaction($parent, method, file)">
+                                        <template v-if="method.src !== undefined">
+                                            <a :href="method.src(file)" :class="method.icon" :download="file.name" style="color:#fff;" />
+                                        </template>
+                                        <template v-else>
+                                            <i :class="method.icon"></i>
+                                        </template>
+                                    </span>
+                                </template>
+                            </template>
+                        </span>
+                    </li>
+                </template>
+            </ul>
+            <el-upload v-if="allownew()" :action="gallerymodel.addmethod" list-type="picture-card"
+                       :on-success="onsuccessload"
+                       @*:on-progress="handleprogress"
+                       :on-success="handlesuccess"*@
+                       :data="uploadargs"
+                       :file-list="listdata"
+                       :disabled="isloading"
+                       :show-file-list="false"
+                       multiple>
+                <i class="el-icon-plus"></i>
+            </el-upload>
+        </template>
+        <el-button v-if="listdata.length > 0" type="primary" size="mini" v-on:click="getallfiles"><span>Сохранить все файлы</span></el-button>
+        <crossd-generic-dialog dialogstyle="form"
+                               ref="fileeditor"
+                               :model="gallerymodel"
+                               :userinfo="userinfo"
+                               :append="true"></crossd-generic-dialog>
+    </div>
+</script>

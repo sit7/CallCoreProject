@@ -1,0 +1,210 @@
+﻿
+
+#app .el-table thead{
+    color: #292929;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+#app .el-table thead tr th{
+    /*background: #e5ecff;
+    border-bottom: 1px solid #c1c1c1;*/
+}
+#app .el-table--mini td, 
+#app .el-table--mini th{
+    padding: 6px 0;
+    vertical-align:top;
+}
+
+#app .el-table--mini td.el-table__expanded-cell {
+    padding: 20px;
+}
+
+#app .el-icon-more.vertical {
+    transform: rotate(90deg);
+    cursor: pointer;
+}
+
+#app .full-width,
+.custom .full-width {
+    width: 100%;
+}
+
+.el-select-dropdown__item {
+    height: auto;
+    line-height: 1.2;
+    margin-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.el-select-dropdown__item .primary{
+
+}
+
+.el-select-dropdown__item .secondary{
+    color: #a7a7a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.el-select-dropdown__item.selected {
+    color: #292929;
+}
+
+#app .el-table,
+.custom .el-table {
+    color: #292929;
+}
+
+#app .el-table__row.delete {
+    /*color: #a7a7a7;*/
+    text-decoration: line-through;
+}
+#app .dates-separator {
+    font-weight: 400;
+    padding: 0 10px;
+}
+
+#app .el-date-editor.el-input {
+    width: auto;
+}
+
+#app .header{
+    color: #292929;
+    font-size: 18px;
+    padding-bottom: 20px;
+}
+
+#app .header .subheader{
+    color: #292929;
+    font-size: 14px;
+    font-style: italic;
+}
+#app  .header .subheader .date{
+    font-style: italic;
+}
+
+#app .footer{
+    color: #292929;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type='number'] {
+-moz-appearance:textfield;
+}
+
+.custom-dialog .calculations {
+    font-size: 12px;
+    padding-top:20px;
+}
+
+.custom-dialog .summary {
+    font-weight: 700;
+    color: #292929;
+    font-size: 12px;
+}
+
+.custom-dialog .summary-cell {
+    font-size: 12px;
+}
+
+.custom-dialog .form-header {
+    font-size: 16px;
+    color: #292929;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.no-margin {
+    margin:0 !important;
+}
+
+.custom-dialog .auto-width {
+    width: auto !important;
+}
+
+.custom-dialog .el-input__inner {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+
+.block-margin {
+    margin-bottom: 20px;
+}
+
+.display-table {
+    display: table;
+
+}
+
+.display-table .display-row {
+    display: table-row;
+}
+
+.display-table .display-cell {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3px;
+}
+
+.custom-dialog .results {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+.custom-dialog .success {
+    color: #67c23a;
+}
+
+.custom-dialog .too-less,
+.custom-dialog .too-much,
+.custom-dialog .out-of-store {
+    color: #f56c6c;
+}
+
+.custom-dialog .result-icon {
+    font-size: 68px;
+    padding-right:30px;
+}
+
+.custom-dialog .el-dialog__body {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.custom-dialog .table-text-button {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.custom-dialog .no-padding {
+    padding: 0;
+}
+
+.custom-dialog .el-table .small-font {
+    font-size: 12px;
+}
+
+.custom-dialog .el-form {
+    color: #292929;
+}
+
+.custom-dialog .el-form .el-form-item__label {
+    font-size: 12px;
+    color: #292929;
+    
+}

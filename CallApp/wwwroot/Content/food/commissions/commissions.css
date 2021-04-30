@@ -1,0 +1,127 @@
+﻿section#app .el-table thead,
+.custom .el-table thead{
+    color: #292929;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+section#app .el-table--mini td, 
+section#app .el-table--mini th,
+.custom .el-table--mini td, 
+.custom .el-table--mini th{
+    padding: 6px 0;
+    vertical-align:top;
+}
+
+section#app .el-table, 
+.custom .el-table{
+    color: #292929;
+}
+
+section#app .el-table__row.delete,
+.custom .el-table__row.delete  {
+    /*color: #a7a7a7;*/
+    text-decoration: line-through;
+}
+
+.el-select-dropdown__item {
+    height: auto;
+    line-height: 1.2;
+    margin-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+.el-radio.no-label .el-radio__label{
+    display: none;
+}
+
+.el-select-dropdown__item .primary{
+
+}
+
+.el-select-dropdown__item .secondary{
+    color: #a7a7a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.el-select-dropdown__item.selected {
+    color: #292929;
+}
+
+section#app .full-width,
+.custom .full-width {
+    width: 100%;
+}
+
+section#app .el-card {
+    margin-bottom: 10px;
+}
+
+section#app .el-card .el-card__header {
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+
+section#app .el-card .el-card__body .hour-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+section#app .el-card .el-card__body .hour-line .hour-name{
+    font-style: italic;
+}
+
+section#app .el-card .el-card__body .hour-line .spacer {
+    border-bottom: 1px solid #ccc;
+    flex-grow: 1;
+    line-height:1;
+}
+
+.custom .eating-group-name{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #292929;
+}
+
+section#app .no-data-caption {
+    font-style: italic;
+    color: #888888;
+}
+
+.custom .time-picker-button-wrapper{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.custom .time-picker-button-wrapper .button {
+    position: absolute;
+    right: -25px;
+}
+
+.custom .position {
+    padding: 7px 0;
+    font-size: 12px;
+    font-style: italic;
+    color: #a7a7a7;
+}
+
+.custom .el-radio__label {
+    font-size: 12px;
+}
+
+.commission-form .order-number {
+    position: relative;
+    top: 3px;
+    font-size: 12px;
+}

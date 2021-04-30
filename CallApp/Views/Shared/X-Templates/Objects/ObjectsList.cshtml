@@ -1,0 +1,20 @@
+﻿<script type="text/x-template" id="objects-list">
+    <div class="objects-list">
+        <crossd-generic-grid :gridmodel="objectgridmodel"
+                             :userinfo="userinfo"
+                             :geturl="objectgridmodel.getmethod"
+                             keyfield="ObjectID"
+                             ref="objectgrid"
+                             :allowadd="false"
+                             :paging="true"
+                             :showsearch="true"
+                             :payload="objectargs">
+        </crossd-generic-grid>
+        <crossd-generic-dialog dialogstyle="form" ref="objecteditor"
+                               :model="objectcardmodel"
+                               :userinfo="userinfo"
+                               :append="false">
+        </crossd-generic-dialog>
+    </div>
+
+</script>

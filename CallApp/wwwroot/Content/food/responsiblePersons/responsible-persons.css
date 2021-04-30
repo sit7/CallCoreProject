@@ -1,0 +1,117 @@
+﻿section#app .full-width,
+.custom .full-width {
+    width: 100%;
+}
+
+section#app .el-card {
+    margin-bottom: 10px;
+}
+
+section#app .el-card .el-card__header {
+    padding: 5px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+
+section#app .el-card .el-card__body{
+    padding: 15px;
+}
+
+.el-select-dropdown__item {
+    height: auto;
+    line-height: 1.2;
+    margin-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+}
+
+.el-select-dropdown__item .primary{
+
+}
+
+.el-select-dropdown__item .secondary{
+    color: #a7a7a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.el-select-dropdown__item.selected {
+    color: #292929;
+}
+
+section#app .responsible-persons-app .responsible-person {
+    padding: 10px;
+    box-shadow: 0 0 5px 0 #cecece;
+    border-radius: 3px;
+    position: relative;
+
+}
+
+section#app .responsible-persons-app .responsible-person .delete-button {
+   
+    right: 10px;
+    top: 0;
+}
+
+section#app .responsible-persons-app .responsible-person .person {
+    border-bottom: 1px solid #cecece;
+}
+
+section#app .responsible-persons-app .responsible-person .name {
+    color: #292929;
+    font-weight: bold;
+}
+
+section#app .responsible-persons-app .responsible-person .position {
+    color: #a7a7a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+section#app .responsible-persons-app .responsible-person .period {
+    font-style: italic;
+}
+
+section#app .responsible-persons-app .responsible-persons-history {
+    padding-left: 25px;
+    padding-top: 15px;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .header {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .history-item{
+    padding: 10px;
+    box-shadow: 0 0 5px 0 #cecece;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .history-item .period {
+    font-weight: bold;
+    font-size: 12px;
+    color: #949494;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .history-item .name {
+    font-weight: normal;
+    font-style: italic;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .history-item .position {
+    color: #a7a7a7;
+    font-size: 12px;
+    font-style: italic;
+}
+
+section#app .responsible-persons-app .responsible-persons-history .history-item .comment {
+    font-size: 12px;
+}

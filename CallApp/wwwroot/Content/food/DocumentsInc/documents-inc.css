@@ -1,0 +1,34 @@
+﻿
+
+.el-table__header {
+    width: 100% !important;
+}
+
+ 
+
+.el-table__body {
+    width: 100% !important;
+}
+
+ 
+
+.gutter {
+    width: 0px;
+    display: block !important;
+}
+
+ 
+
+.el-table .cell {
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: normal !important;
+    color: black;
+    text-align:center!important;
+}
+
+ 
+
+..el-table th > .cell {
+    text-align:center !important;
+}

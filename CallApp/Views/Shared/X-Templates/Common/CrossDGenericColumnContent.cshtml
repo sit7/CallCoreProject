@@ -1,0 +1,172 @@
+﻿<style type="text/css">
+
+    .crossd-form-item_label {
+        margin-left: 7px;
+        font-size: 13px;
+    }
+
+    .crossd-select .el-select {
+        
+    }
+    .crossd-required-field {
+        color: red;
+    }
+
+    .hide-overflow .span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .content-value {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    ELEMENT.locale(ELEMENT.lang.ruRU)
+</script>
+<script type="text/x-template" id="crossd-generic-column-content">
+
+    <span v-if="ispropertyvisible">
+        <template v-if="owner === 'form'">            
+            <label class="crossd-form-item_label" for="property.datafield">
+                <span>
+                    {{property.text}}:
+                </span>
+            </label>
+        </template>
+        <template>
+            <template v-if="iseditmode">
+                <template v-if="issuggestor">
+                    <el-input size="mini"
+                              v-model="propertyvalue"
+                              v-on:change="onpropertychange"
+                              :ref="property.datafield+'_inner'"></el-input>
+                </template>
+                <template v-else-if="isautocomplete">
+                    <el-autocomplete size="mini"
+                                     v-model="propertyvalue"
+                                     :trigger-on-focus="false"
+                                     :fetch-suggestions="autocompletequery"
+                                     :value-key="property.displayvalue"
+                                     v-on:select="onpropertychange($event[property.datafield], property)"
+                                     clearable>
+                        <template slot-scope="{item}">
+                            <span>{{item[property.displayvalue]}}</span>
+                        </template>
+                    </el-autocomplete>
+                </template>
+                <template v-else-if="isdate">
+                    <el-date-picker size="mini"
+                                    v-model="row[property.datafield]"
+                                    :format="property.format"
+                                    v-on:change="onpropertychange($event, property)"
+                                    clearable></el-date-picker>
+                </template>
+                <template v-else-if="isdatetime">
+                    <el-datetime-picker></el-datetime-picker>
+                </template>
+                <template v-else-if="isdropdown">
+                    <el-select size="mini"
+                               v-model="row[property.datafield]"
+                               v-on:change="onpropertychange($event, property)"
+                               v-on:clear="onpropertychange(null, property)"
+                               clearable>
+                        <el-option v-for="(option, index) in remoteoptions(row, property)"
+                                   :key="option[property.datafield]"
+                                   :value="option[property.datafield]"
+                                   :label="option[property.displayname]"
+                                   :disabled="isoptiondisabled(option)"
+                                   style="display: contents; line-height: 20px; padding: 20px"
+                                   size="mini">
+                            <p>{{option[property.displayname]}}</p>
+                            <template v-if="property.misc">
+                                <p style="font-size: 10px; font-style: italic;">{{option[property.misc]}}</p>
+                            </template>
+                        </el-option>
+                    </el-select>
+                </template>
+                <template v-else-if="ischeckbox">
+                    <el-checkbox v-model="propertyvalue" size="mini" v-on:change="onpropertychange($event, property)"></el-checkbox>
+                </template>
+                <template v-else-if="istextarea">
+                    <el-input v-model="propertyvalue" size="mini" :rows="property.rows" :maxlength="property.maxlength" type="textarea" autosize clearable v-on:change="onpropertychange($event, property)"></el-input>
+                </template>
+                <template v-else-if="isuploader">
+                    <el-upload v-loading="isloading" :action="property.action" :data="property.data(row)" :multiple="property.allowmultiple" list-type="text" :file-list="filelist" :name="property.filename">
+                        <el-button slot="trigger" size="mini" type="primary">Выбрать файл</el-button>
+                    </el-upload>
+                </template>
+                <template v-else>
+                    <el-input v-model="propertyvalue" size="mini" :rows="property.rows" :maxlength="property.maxlength" clearable v-on:change="onpropertychange($event, property)"></el-input>
+                </template>
+            </template>
+            <template v-else>
+                
+                <template v-if="isdropdown">
+                    <template v-if="currentoption(row, property)">
+                        <template v-if="owner==='grid'">
+                            <span>{{selectedoption[property.displayname]}}</span>
+                            <template v-if="property.misc">
+                                <div style="font-size: 11px; font-style: italic;">{{selectedoption[property.misc]}}</div>
+                            </template>
+                        </template>
+                        <template v-else-if="owner==='form'">
+                            <template v-if="property.misc">
+                                <el-tooltip>
+                                    <div slot="content">
+                                        {{selectedoption[property.misc]}}
+                                    </div>
+                                    <span>{{selectedoption[property.displayname]}}</span>
+                                </el-tooltip>
+                            </template>
+                            <template v-else>
+                                <span>{{selectedoption[property.displayname]}}</span>
+                            </template>
+                        </template>
+                    </template>
+                    <template v-else><span>н/д</span></template>
+                </template>
+                <template v-else-if="ischeckbox">
+                    <template v-if="istruevalue(rawvalue)">
+                        <i class="el-icon-check"></i>
+                    </template>
+                    <template v-else>
+                        <i class="el-icon-full-screen"></i>
+                    </template>
+                </template>
+                <template v-else-if="istextbutton">
+                    <el-button size="mini" type="text" v-on:click="onclick">
+                        <template v-if="customvalue">
+                            <span>{{customvalue(row)}}</span>
+                        </template>
+                        <template v-else>
+                            <template v-if="property.hideif">
+                                <template v-if="property.hideif(row)">
+                                </template>
+                                <template v-else>
+                                    <span>{{rawvalue}}</span>
+                                </template>
+                            </template>
+                            <template v-else>
+                                <span>{{rawvalue}}</span>
+                            </template>
+                        </template>
+                    </el-button>
+                </template>
+                <template v-else-if="isdate">
+                    <span>{{formatDate(rawvalue)}}</span>
+                </template>
+                <template v-else-if="isrouterlink">
+                    <router-link :to="property.routeinfo(row)">{{rawvalue}}</router-link>
+                </template>
+                <template v-else-if="iscomposite">
+                    <span>{{property.format(row)}}</span>
+                </template>
+                <template v-else>
+                    <span>{{rawvalue}}</span>
+                </template>
+            </template>
+        </template>
+    </span>
+</script>

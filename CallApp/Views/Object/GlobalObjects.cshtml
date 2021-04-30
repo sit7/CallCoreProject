@@ -1,0 +1,49 @@
+﻿@using ServiceLib.Infrastructure;
+@section styles {
+    <link rel="stylesheet" href="~/Scripts/element-ui/theme-chalk/index.css">
+}
+@section scripts{
+
+
+    <script src="~/Scripts/vue/vue.js"></script>
+    <script src="~/Scripts/vue-router/vue-router.js"></script>
+    <script src="~/Scripts/element-ui/index.js"></script>
+    <script src="~/Scripts/element-ui/locale/ru-RU.js"></script>
+    <script src="~/Scripts/vue-i18n/vue-i18n.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.suggestions.min.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-mixins.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-credentials.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-form.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-form-container.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-dialog.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-grid.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-gallery.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-filter.js"></script>
+    <script src="~/Scripts/client-apps/common/crossd-generic-column-content.js"></script>
+    <script src="~/Scripts/client-apps/common/vue-mixins.js"></script>
+
+    <partial name="X-Templates/Common/CrossDGenericGrid" />
+    <partial name="X-Templates/Common/CrossDGenericForm" />
+    <partial name="X-Templates/Common/CrossDGenericDialog" />
+    <partial name="X-Templates/Common/CrossDGenericGallery" />
+    <partial name="X-Templates/Common/CrossDGenericFilter" />
+    <partial name="X-Templates/Common/CrossDGenericColumnContent" />
+    <partial name="X-Templates/Common/CrossDGenericFormContainer" />
+    <partial name="X-Templates/Objects/ObjectCard" />
+    <partial name="X-Templates/Objects/ObjectsApp" />
+    <partial name="X-Templates/Objects/ObjectsList" />
+    <partial name="X-Templates/App" />
+
+    <script src="~/Scripts/client-apps/object/components/objects-mixins.js"></script>
+    <script src="~/Scripts/client-apps/object/components/objects-app.js"></script>
+    <script src="~/Scripts/client-apps/object/components/objects-list.js"></script>
+    <script src="~/Scripts/client-apps/object/components/object-card.js"></script>
+
+    <script src="~/Scripts/client-apps/object/routes.js"></script>
+    <script src="~/Scripts/client-apps/object/index.js"></script>
+}
+
+
+<section id="app">
+    <objects-app></objects-app>
+</section>

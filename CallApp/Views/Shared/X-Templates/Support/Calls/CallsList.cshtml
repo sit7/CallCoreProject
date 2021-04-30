@@ -1,0 +1,160 @@
+﻿<script type="text/x-template" id="calls-list">
+	<div class="calls-list">
+		<template >
+			<h2>звонки с </h2>
+			<div class="tool-bar">
+		<div class="tool-bar-block">
+			<el-date-picker size="mini"
+							type="date"
+							format="dd.MM.yyyy"
+							placeholder="Дата с"
+							v-bind:clearable="false"
+							v-model="dateFrom">
+			</el-date-picker>
+		
+				<el-checkbox class="check-box-text-small"
+							 v-model="IsNotResolved"
+							 v-bind:true-label="1"
+							 v-bind:false-label="0">
+				</el-checkbox>
+			<span v-if="IsNotResolved">Все</span>
+			<span v-else>Только нерешенные</span>
+		</div>
+				<el-button type="primary"
+						   icon="el-icon-check"
+						   size="small"
+						   v-on:click="addCall">
+					Добавить
+				</el-button>
+		</div>
+			</template>
+		<div class="calls">
+			<el-table size="mini"
+					  v-bind:data="calls"
+					  stripe>
+				<el-table-column width="80">
+					<template slot="header" slot-scope="scope">
+						Дата
+					</template>
+                    <template slot-scope="scope">
+                        {{scope.row.CallDate | date}}
+                    </template>
+				</el-table-column>
+				<el-table-column width="120">
+					<template slot="header" slot-scope="scope">
+						Объект
+					</template>
+					<template slot-scope="scope">
+                        {{scope.row.ShortName}}
+					</template>
+				</el-table-column>
+				<el-table-column width="300">
+					<template slot="header" slot-scope="scope">
+						Наименование
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.Name}}
+					</template>
+				</el-table-column>
+				<el-table-column width="400">
+					<template slot="header" slot-scope="scope">
+						Описание
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.Description}}
+					</template>
+				</el-table-column>
+				<el-table-column width="365">
+					<template slot="header" slot-scope="scope">
+						Решение
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.Solution}}
+					</template>
+				</el-table-column>
+				<el-table-column width="75">
+					<template slot="header" slot-scope="scope">
+						Принял зв.
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.CreateUser}}
+					</template>
+				</el-table-column>
+				<el-table-column width="75">
+					<template slot="header" slot-scope="scope">
+						Ответственный
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.ResponsibleUser}}
+					</template>
+				</el-table-column>
+				<el-table-column width="70">
+					<template slot="header" slot-scope="scope">
+						Статус
+					</template>
+					<template slot-scope="scope">
+						{{scope.row.Status}}
+					</template>
+				</el-table-column>
+				<el-table-column width="25">
+					<template slot-scope="scope">
+						<div class="actions">
+							<el-tooltip content="Редактировать">
+								<el-button type="text"
+										   icon="el-icon-edit"
+										   size="mini"
+										   v-on:click="editCall(scope.row)">
+
+								</el-button>
+							</el-tooltip>
+						</div>
+					</template>
+				</el-table-column>
+				<el-table-column width="25">
+					<template slot-scope="scope">
+						<div class="actions">
+							<el-tooltip content="Готово">
+								<el-button v-if="scope.row.StatusID===1"
+										   type="text"
+										   icon="el-icon-circle-check"
+										   size="mini"
+										   v-on:click="doneCall(scope.row)">
+								</el-button>
+								<el-button v-else
+										   type="text"
+										   icon="el-icon-remove"
+										   size="mini"
+										   v-on:click="doneCall(scope.row)">
+								</el-button>
+							</el-tooltip>
+						</div>
+					</template>
+				</el-table-column>
+				<el-table-column width="25">
+					<template slot-scope="scope">
+						<div class="actions">
+							<el-tooltip content="Удалить">
+								<el-button type="text"
+										   icon="el-icon-delete"
+										   size="mini"
+										   v-on:click="deleteCall(scope.row)">
+
+								</el-button>
+							</el-tooltip>
+						</div>
+					</template>
+				</el-table-column>
+			</el-table>
+		</div>
+		<el-dialog title="Редактирование"
+				   v-bind:visible.sync="showAddCallDialog"
+				   v-bind:width="'1000px'"
+				   v-bind:lock-scroll="true"
+				   v-bind:top="'15vh'"
+				   v-bind:close-on-click-modal="false">
+			<call-form v-bind:call="call"
+							   v-on:form-saved="onCallSaved">
+			</call-form>
+		</el-dialog>
+	</div>
+</script>

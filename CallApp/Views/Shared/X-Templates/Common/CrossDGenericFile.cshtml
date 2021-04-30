@@ -1,0 +1,25 @@
+﻿<style>
+    .generic-file-preview {
+        width: 100%;
+        height:auto;
+        border-width: 10px;
+        border-style: double;
+        border-color: white;
+    }
+</style>
+<script type="text/x-template" id="crossd-generic-file">
+    <div>
+        <el-tooltip :content="tooltip">
+            <img v-bind:src="src" v-on:click="onview" class="generic-file-preview" />
+        </el-tooltip>
+        <div>
+            <el-button-group>
+                <el-tooltip content="Изменить">
+                    <el-button type="text" icon="el-icon-edit" size="mini" v-on:click="onedit"></el-button>
+                </el-tooltip>
+                <el-tooltip content="Удалить"><el-button type="text" icon="el-icon-delete" size="mini" v-on:click="ondelete"></el-button></el-tooltip>
+                <el-tooltip content="Сохранить на диск"><el-button type="text" icon="el-icon-download" size="mini" v-on:click="ondownload"></el-button></el-tooltip>
+            </el-button-group>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,15 @@
+﻿<script type="text/x-template" id="crossd-generic-filter">
+    <el-collapse accordion>
+        <el-collapse-item>
+            <template slot="title">
+                <i class="el-icon-search"></i>
+                <label>Фильтр</label>
+            </template>
+            <crossd-generic-form-container :containermodel="model"
+                                           :payload="filterobject"
+                                           :userinfo="creds"
+                                           v-on:payload-property-changed="$emit('filter-changed', $event)">
+            </crossd-generic-form-container>
+        </el-collapse-item>
+    </el-collapse>
+</script>

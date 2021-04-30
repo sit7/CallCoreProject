@@ -1,0 +1,94 @@
+﻿<script src="~/Scripts/client-apps/common/crossd-mixins.js" type="text/javascript"></script>
+<script type="text/x-template" id="crossd-generic-grid">
+    <div class="crossd-generic-grid">
+        
+        <template v-if="filterable">
+            <crossd-generic-filter :model="filtermodel" :creds="userinfo" :payload="payload" v-on:filter-changed="filterdata"></crossd-generic-filter>
+        </template>
+        <template v-if="showsearch">
+            <el-input v-model="payload.SearchString" v-on:input="loaddata(payload)" placeholder="Начните печатать для поиска" clearable size="mini" ></el-input>
+        </template>
+        <div class="crossd-grid-buttons" id="gridbuttons">
+            <el-button v-if="allownew(userinfo)" size="mini" type="primary" v-on:click="onaddclick">Добавить строку</el-button>
+            <el-button v-if="showrefresh" size="mini" typeof="primary" v-on:click="reload">Обновить</el-button>
+        </div>
+            
+        <el-table v-loading="isloading"
+                        :data="listdata"
+                        :filter-method="searchmethod"
+                        :row-class-name="resolverowclass"
+                        size="mini" border>
+            <el-table-column v-if="hasleftmethods" width="30">
+                <template slot-scope="scope">
+                    <el-tooltip v-for="(method, index) in leftmethods" :content="method.displayname" :key="method.name">
+                        <el-button v-if="touch(method, userinfo, scope.row)"
+                                    size="mini"
+                                    type="text"
+                                    :icon="method.icon"
+                                    v-on:click="methodaction($parent, method, scope)">
+                        </el-button>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+            <template v-for="(property, index) in gridmodel.descriptor">
+                <template v-if="isvisible(property)">
+                    <el-table-column :prop="property.datafield"
+                                        :key="index"
+                                        :label="property.text"
+                                        :column-key="property.datafield"
+                                        :min-width="property.width">
+                        <template slot-scope="scope">
+                            <template v-if="getpopover(scope, property)">
+                                <el-popover v-loading="ispopoverloading(popoverkey(scope, property))"
+                                            :trigger="popovermap.get(popoverkey(scope, property)).trigger"
+                                            :title="popovermap.get(popoverkey(scope, property)).title"
+                                            :width="popovermap.get(popoverkey(scope, property)).width"
+                                            :content="popovermap.get(popoverkey(scope, property)).content">
+                                    <template v-if="popovermap.get(popoverkey(scope, property)).nested">
+                                        <crossd-generic-list :customlist="property.descriptor"
+                                                                :liststyle="'cardview'"
+                                                                :userinfo="userinfo"
+                                                                :row="scope.row"></crossd-generic-list>
+                                    </template>
+                                    <crossd-generic-column-content slot="reference" :row="scope.row"
+                                                                    :property="property"
+                                                                    :rawvalue="scope.row[property.datafield]"
+                                                                    :customvalue="property.format"
+                                                                    owner="grid"
+                                                                    :remoteoptions="remoteoptions(scope.row, property)"
+                                                                    v-on:column-button-clicked="property.onclick($parent, scope)">
+                                    </crossd-generic-column-content>
+                                </el-popover>
+                            </template>
+                            <template v-else>
+                                <crossd-generic-column-content :row="scope.row"
+                                                                :property="property"
+                                                                :customvalue="property.format"
+                                                                :rawvalue="scope.row[property.datafield]"
+                                                                owner="grid"
+                                                                :remoteoptions="remoteoptions(scope.row, property)"
+                                                                v-on:column-button-clicked="property.onclick($parent, scope)">
+                                </crossd-generic-column-content>
+                            </template>
+                        </template>
+                    </el-table-column>
+                </template>
+            </template>
+
+            <el-table-column v-if="methodsdefined" fixed="right" width="100">
+                <template slot-scope="scope">
+                    <el-tooltip v-for="(method, index) in rightmethods" :content="method.displayname" :key="method.name">
+                        <el-button v-if="touch(method, userinfo, scope.row)"
+                                    size="mini"
+                                    type="text"
+                                    :icon="method.icon"
+                                    v-on:click="methodaction($parent, method, scope)">
+                        </el-button>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+
+            </el-table>
+            
+    </div>
+</script>

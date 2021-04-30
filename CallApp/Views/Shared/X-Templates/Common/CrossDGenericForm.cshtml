@@ -1,0 +1,51 @@
+﻿<style>
+    .crossd-form-item__inner {
+        display: flex;
+    }
+</style>
+<script type="text/x-template" id="crossd-generic-form">
+    <div class="crossd-generic-form">
+        <template v-if="payload!==undefined">
+            <el-form :model="payload"
+                     :status-icon="true"
+                     :ref="formkey" size="mini">
+                    <template v-for="(property, index) in descriptor">
+                        <template v-if="property.descriptor !== undefined">
+                            <div class="crossd-form-item__inner">
+                                <template v-for="(prop, index) in property.descriptor">
+                                    <el-form-item :prop="prop.datafield" :rules="getrules(prop)" size="mini">
+                                        <crossd-generic-column-content :row="payload"
+                                                                       :property="prop"
+                                                                       :rawvalue="payload[prop.datafield]"
+                                                                       :ispropertyvisible="ispropertyvisible(prop)"
+                                                                       :ispropertyeditable="ispropertyeditable(prop)"
+                                                                       :isoptiondisabled="isoptiondisabled(prop)"
+                                                                       :remoteoptions="remoteoptions(payload, prop)"
+                                                                       v-on:property-changed="onpropertychange($event, prop)"
+                                                                       owner="form">
+                                        </crossd-generic-column-content>
+                                    </el-form-item>
+                                </template>
+                            </div>
+                        </template>
+                        <template v-else-if="ispropertyvisible(property)">
+                            <el-form-item :prop="property.datafield" :rules="getrules(property)">
+                                <crossd-generic-column-content owner="form"
+                                                                :row="payload"
+                                                                :property="property"
+                                                                :rawvalue="payload[property.datafield]"
+                                                                :ispropertyvisible="ispropertyvisible(property)"
+                                                                :ispropertyeditable="ispropertyeditable(property)"
+                                                                :isoptiondisabled="isoptiondisabled(property)"
+                                                                :remoteoptions="remoteoptions(payload, property)"
+                                                                v-on:property-changed="onpropertychange">
+                                </crossd-generic-column-content>
+                            </el-form-item>
+                        </template>
+                    </template>
+                
+            </el-form>
+        </template>
+
+    </div>
+</script>
