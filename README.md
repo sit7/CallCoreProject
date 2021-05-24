@@ -1,4 +1,7 @@
 # CallCoreProject
+
+Проекты данного репозитория размещены для возможности предметного разговора и ознакомления при трудоустройстве.
+
 Pilot From .NET Framework 4.6.1 + MS SQL Server To .NET Core 3.1 + PostgreSQL
 
 Проект апрель-май 2020.
